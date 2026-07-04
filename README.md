@@ -4,20 +4,42 @@ A full-stack, production-ready SaaS application that turns handwritten or typed 
 
 ## Tech Stack
 
-**Frontend:** React 18, Vite, Tailwind CSS, React Router, Axios, Recharts, Framer Motion, react-hot-toast
-**Backend:** Node.js, Express.js, MVC architecture
-**Database:** MongoDB + Mongoose
-**Auth:** JWT + bcrypt
-**Storage:** Cloudinary (notes + avatars)
-**OCR:** Google Cloud Vision API
-**AI:** OpenAI GPT API (JSON-mode structured flashcard generation)
+## Tech Stack
+
+### Frontend
+- React 18
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- Framer Motion
+- Recharts
+
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT Authentication
+- bcrypt
+
+### AI
+- Google Gemini 2.5 Flash
+- Tesseract OCR
+
+### Storage
+- Cloudinary
+
+### Deployment
+- Vercel (Frontend)
+- Render (Backend)
 
 ## Features
 
 - Register / Login (JWT auth, bcrypt password hashing)
 - Upload notes as PDF or image
-- OCR text extraction via Google Cloud Vision
-- AI flashcard generation via OpenAI, grounded strictly in the extracted text (no hallucination by design)
+- OCR text extraction using Tesseract.js
+- AI flashcard generation using Google Gemini 2.5 Flash, grounded strictly in the extracted text (no hallucination by design)
 - Flashcards organized by Subject → Chapter → Topic
 - Full CRUD, search, tag filtering, pagination
 - Favorites
