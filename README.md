@@ -4,8 +4,6 @@ A full-stack, production-ready SaaS application that turns handwritten or typed 
 
 ## Tech Stack
 
-## Tech Stack
-
 ### Frontend
 - React 18
 - Vite
