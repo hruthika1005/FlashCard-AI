@@ -9,7 +9,7 @@ export default function Navbar({ onMenuClick }) {
   const { user } = useAuth();
 
   return (
-    <header className="sticky top-0 z-30 glass-card mx-3 mt-3 flex items-center justify-between rounded-2xl px-4 py-3 sm:mx-6 sm:mt-4">
+    <header className="sticky top-0 z-30 glass-card mx-3 mt-3 flex items-center justify-between rounded-xl px-4 py-3 sm:mx-6 sm:mt-4">
       <div className="flex items-center gap-3">
         <button
           onClick={onMenuClick}
@@ -19,10 +19,10 @@ export default function Navbar({ onMenuClick }) {
           <Menu size={20} />
         </button>
         <Link to="/dashboard" className="flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-600 to-accent-600 text-white shadow-md shadow-primary-500/30">
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-600 text-white">
             <Sparkles size={18} />
           </span>
-          <span className="hidden text-lg font-bold tracking-tight sm:block">FlashGenius</span>
+          <span className="hidden text-lg font-semibold tracking-tight sm:block">FlashGenius</span>
         </Link>
       </div>
 

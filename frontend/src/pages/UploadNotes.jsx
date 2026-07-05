@@ -73,7 +73,7 @@ export default function UploadNotes() {
             onDragLeave={() => setDragActive(false)}
             onDrop={handleDrop}
             onClick={() => fileInputRef.current?.click()}
-            className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed p-10 text-center transition-colors ${
+            className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed p-10 text-center transition-colors ${
               dragActive ? 'border-primary-500 bg-primary-50 dark:bg-primary-950/30' : 'border-gray-300 dark:border-gray-700'
             }`}
           >
@@ -142,7 +142,7 @@ export default function UploadNotes() {
             <div className="mt-4">
               <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-primary-500 to-accent-500 transition-all duration-300"
+                  className="h-full rounded-full bg-primary-600 transition-all duration-300"
                   style={{ width: `${progress}%` }}
                 />
               </div>

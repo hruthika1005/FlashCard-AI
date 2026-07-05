@@ -76,7 +76,7 @@ export default function Profile() {
               </div>
               <button
                 onClick={() => fileInputRef.current?.click()}
-                className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-white shadow-md transition-transform hover:scale-110"
+                className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-primary-600 text-white shadow-sm transition-colors hover:bg-primary-700"
               >
                 {uploadingAvatar ? <Loader2 size={14} className="animate-spin" /> : <Camera size={14} />}
               </button>

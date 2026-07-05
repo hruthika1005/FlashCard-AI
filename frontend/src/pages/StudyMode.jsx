@@ -102,7 +102,7 @@ export default function StudyMode() {
 
         <div className="mb-4 h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-primary-500 to-accent-500 transition-all duration-300"
+            className="h-full rounded-full bg-primary-600 transition-all duration-300"
             style={{ width: `${((index) / queue.length) * 100}%` }}
           />
         </div>
@@ -135,7 +135,7 @@ export default function StudyMode() {
               <button
                 key={opt.label}
                 onClick={() => handleReview(opt.quality)}
-                className={`${opt.color} rounded-xl py-2.5 text-sm font-semibold text-white shadow-md transition-transform hover:-translate-y-0.5`}
+                className={`${opt.color} rounded-lg py-2.5 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90`}
               >
                 {opt.label}
               </button>

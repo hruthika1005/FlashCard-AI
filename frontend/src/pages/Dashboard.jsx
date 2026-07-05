@@ -58,7 +58,7 @@ export default function Dashboard() {
           <StatCard icon={Layers} label="Total Flashcards" value={stats.totalFlashcards} accent="bg-primary-500" />
           <StatCard icon={Clock} label="Due Today" value={stats.dueToday} accent="bg-amber-500" />
           <StatCard icon={Star} label="Favorites" value={stats.favoritesCount} accent="bg-rose-500" />
-          <StatCard icon={Upload} label="Notes Uploaded" value={stats.totalNotesUploaded} accent="bg-accent-500" />
+          <StatCard icon={Upload} label="Notes Uploaded" value={stats.totalNotesUploaded} accent="bg-violet-500" />
         </div>
       )}
 
@@ -66,16 +66,16 @@ export default function Dashboard() {
         <div className="glass-card p-6 lg:col-span-2 animate-slide-up">
           <h2 className="mb-4 text-lg font-bold text-gray-800 dark:text-gray-100">Quick Actions</h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <Link to="/upload" className="glass-card flex flex-col items-center gap-2 p-5 text-center transition-transform hover:-translate-y-1">
+            <Link to="/upload" className="glass-card flex flex-col items-center gap-2 p-5 text-center transition-colors hover:border-primary-300 dark:hover:border-primary-700">
               <Upload className="text-primary-500" size={26} />
               <span className="text-sm font-semibold">Upload Notes</span>
             </Link>
-            <Link to="/study" className="glass-card flex flex-col items-center gap-2 p-5 text-center transition-transform hover:-translate-y-1">
+            <Link to="/study" className="glass-card flex flex-col items-center gap-2 p-5 text-center transition-colors hover:border-primary-300 dark:hover:border-primary-700">
               <BookOpen className="text-emerald-500" size={26} />
               <span className="text-sm font-semibold">Study Mode</span>
             </Link>
-            <Link to="/quiz" className="glass-card flex flex-col items-center gap-2 p-5 text-center transition-transform hover:-translate-y-1">
-              <Brain className="text-accent-500" size={26} />
+            <Link to="/quiz" className="glass-card flex flex-col items-center gap-2 p-5 text-center transition-colors hover:border-primary-300 dark:hover:border-primary-700">
+              <Brain className="text-primary-500" size={26} />
               <span className="text-sm font-semibold">Quiz Mode</span>
             </Link>
           </div>

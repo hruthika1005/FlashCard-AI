@@ -25,10 +25,10 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary-50 via-white to-accent-50 p-4 dark:from-gray-950 dark:via-gray-950 dark:to-gray-900">
+    <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4 dark:bg-slate-900">
       <div className="glass-card w-full max-w-md p-8 animate-slide-up">
         <div className="mb-6 flex flex-col items-center">
-          <span className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-600 to-accent-600 text-white shadow-lg shadow-primary-500/30">
+          <span className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-600 text-white">
             <Sparkles size={24} />
           </span>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Welcome back</h1>
@@ -36,7 +36,7 @@ export default function Login() {
         </div>
 
         {error && (
-          <div className="mb-4 rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600 dark:bg-red-950/40 dark:text-red-400">
+          <div className="mb-4 rounded-lg bg-red-50 px-4 py-2.5 text-sm text-red-600 dark:bg-red-950/40 dark:text-red-400">
             {error}
           </div>
         )}
