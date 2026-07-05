@@ -1,3 +1,10 @@
+<img width="1898" height="923" alt="Screenshot 2026-07-05 151917" src="https://github.com/user-attachments/assets/d59a00bd-04a1-4b92-a9ac-3c8cadc61f9d" />
+<img width="1917" height="923" alt="Screenshot 2026-07-05 151907" src="https://github.com/user-attachments/assets/3fce8979-4b42-49ee-9c45-e4621b49a30f" />
+<img width="1906" height="928" alt="Screenshot 2026-07-05 151900" src="https://github.com/user-attachments/assets/27e2b3c0-e260-42f2-b8d7-b6c76bcef5da" />
+<img width="1902" height="922" alt="Screenshot 2026-07-05 151853" src="https://github.com/user-attachments/assets/8fbab6a8-d96b-4aa0-a578-2b78e908dfb1" />
+<img width="1908" height="922" alt="Screenshot 2026-07-05 151838" src="https://github.com/user-attachments/assets/7c1489af-0124-4363-8ce4-3189f50d6742" />
+<img width="1902" height="918" alt="Screenshot 2026-07-05 151822" src="https://github.com/user-attachments/assets/bc5756f0-4614-4df6-9c75-c4363e809deb" />
+<img width="1110" height="831" alt="Screenshot 2026-07-05 151437" src="https://github.com/user-attachments/assets/ffcf6c83-6091-4dc1-b5a3-da03488ab733" />
 # AI Flashcard Generator
 
 A full-stack, production-ready SaaS application that turns handwritten or typed notes (PDF/image) into high-quality, AI-generated flashcards — complete with spaced repetition, quiz mode, statistics, and a modern glassmorphism UI.
