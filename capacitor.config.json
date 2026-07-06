@@ -1,0 +1,5 @@
+{
+  "appId": "com.hruthika.flashcardai",
+  "appName": "FlashCard AI",
+  "webDir": "frontend/dist"
+}
