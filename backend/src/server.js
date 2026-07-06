@@ -6,11 +6,16 @@ const logger = require('./utils/logger');
 const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
+  console.log("Step 1: Starting server...");
   await connectDB();
+  console.log("Step 2: MongoDB connected.");
 
   const server = app.listen(PORT, () => {
-    logger.info(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`);
-  });
+  console.log("Step 3: Express started.");
+  logger.info(
+    `Server running in ${process.env.NODE_ENV || 'development'} mode on port ${PORT}`
+  );
+});
 
   // Gracefully handle unexpected errors instead of crashing silently
   process.on('unhandledRejection', (reason) => {
