@@ -2,9 +2,15 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { TOKEN_KEY } from '../context/AuthContext';
 
+const API_URL = 'https://flashcard-ai-baun.onrender.com/api';
+
+
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api',
-  headers: { 'Content-Type': 'application/json' },
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // Attach the JWT to every outgoing request if present
@@ -36,7 +42,12 @@ api.interceptors.response.use(
     } else {
       toast.error(message);
     }
+    console.log("Axios error:", error);
+    console.log("Response:", error.response);
+    console.log("Request:", error.request);
+    console.log("Message:", error.message);
 
+   
     return Promise.reject(error);
   }
 );

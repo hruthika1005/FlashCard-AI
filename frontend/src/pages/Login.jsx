@@ -11,18 +11,20 @@ export default function Login() {
   const [error, setError] = useState('');
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    setSubmitting(true);
-    try {
-      await login(form.email, form.password);
-      navigate('/dashboard');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  e.preventDefault();
+  setError('');
+  setSubmitting(true);
+
+  try {
+    await login(form.email, form.password);
+    navigate('/dashboard');
+  } catch (err) {
+    setError(err?.response?.data?.message || err.message || 'Login failed. Please try again.');
+    console.error(err);
+  } finally {
+    setSubmitting(false);
+  }
+};
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 p-4 dark:bg-slate-900">
