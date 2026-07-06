@@ -23,9 +23,23 @@ app.set('trust proxy', 1);
 app.use(helmet());
 
 // CORS - restrict to the configured frontend origin
+// CORS - allow the web frontend and the Capacitor mobile app
+const allowedOrigins = [
+  process.env.CLIENT_URL || 'http://localhost:5173', // web frontend (Vercel)
+  'https://localhost',                                 // Capacitor Android (androidScheme: https)
+  'capacitor://localhost',                             // Capacitor iOS (harmless to include)
+];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      // allow requests with no origin (curl, server-to-server, some native calls)
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS: ' + origin));
+      }
+    },
     credentials: true,
   })
 );
