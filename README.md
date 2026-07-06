@@ -8,6 +8,7 @@
 # AI Flashcard Generator
 
 A full-stack, production-ready SaaS application that turns handwritten or typed notes (PDF/image) into high-quality, AI-generated flashcards — complete with spaced repetition, quiz mode, statistics, and a modern glassmorphism UI.
+https://flash-card-ai-orpin.vercel.app
 
 ## Tech Stack
 
