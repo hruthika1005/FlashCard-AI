@@ -46,6 +46,7 @@ const getFlashcards = asyncHandler(async (req, res) => {
     tag,
     favorite,
     dueOnly,
+    sourceNoteId,
     sortBy = 'createdDate',
     order = 'desc',
   } = req.query;
@@ -62,6 +63,7 @@ const getFlashcards = asyncHandler(async (req, res) => {
   if (tag) query.tags = tag;
   if (favorite === 'true') query.isFavorite = true;
   if (dueOnly === 'true') query.nextReviewDate = { $lte: new Date() };
+  if (sourceNoteId) query.sourceNoteId = sourceNoteId;
 
   const pageNum = Math.max(Number(page), 1);
   const limitNum = Math.min(Math.max(Number(limit), 1), 100);

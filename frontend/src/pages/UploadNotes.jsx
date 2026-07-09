@@ -1,16 +1,20 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { UploadCloud, FileText, Image as ImageIcon, X, Loader2, Sparkles } from 'lucide-react';
+import { UploadCloud, FileText, Image as ImageIcon, X, Loader2, Sparkles, Camera as CameraIcon, Save } from 'lucide-react';
 import Layout from '../components/Layout';
 import uploadService from '../services/uploadService';
+import { isNativePlatform, capturePhotoNative } from '../services/cameraService';
 
 export default function UploadNotes() {
   const navigate = useNavigate();
   const fileInputRef = useRef(null);
+  const cameraInputRef = useRef(null);
   const [file, setFile] = useState(null);
   const [meta, setMeta] = useState({ subject: '', chapter: '', topic: '' });
   const [uploading, setUploading] = useState(false);
+  // Tracks which action is currently running so each button can show its own loading state
+  const [activeAction, setActiveAction] = useState(null); // 'save' | 'generate' | null
   const [progress, setProgress] = useState(0);
   const [dragActive, setDragActive] = useState(false);
 
@@ -34,23 +38,50 @@ export default function UploadNotes() {
     handleFileSelect(e.dataTransfer.files?.[0]);
   };
 
-  const handleSubmit = async () => {
+  // Opens the native camera on Android (via Capacitor), or falls back to the
+  // browser's camera capture input on the web. The captured photo is fed
+  // through the exact same handleFileSelect() path as a regular upload.
+  const handleTakePhoto = async () => {
+    if (isNativePlatform()) {
+      try {
+        const capturedFile = await capturePhotoNative();
+        handleFileSelect(capturedFile);
+      } catch (err) {
+        const message = err?.message || '';
+        if (!message.toLowerCase().includes('cancel')) {
+          toast.error('Unable to access the camera');
+        }
+      }
+    } else {
+      cameraInputRef.current?.click();
+    }
+  };
+
+  const runUpload = async (action) => {
     if (!file) {
-      toast.error('Please select a file first');
+      toast.error('Please select a file or take a photo first');
       return;
     }
     setUploading(true);
+    setActiveAction(action);
     setProgress(0);
     try {
-      const result = await uploadService.uploadAndGenerate(file, meta, (evt) => {
-        setProgress(Math.round((evt.loaded * 100) / evt.total));
-      });
-      toast.success(`Generated ${result.flashcards.length} flashcards!`);
-      navigate('/flashcards');
+      const onUploadProgress = (evt) => setProgress(Math.round((evt.loaded * 100) / evt.total));
+
+      if (action === 'save') {
+        await uploadService.saveNote(file, meta, onUploadProgress);
+        toast.success('Note saved successfully');
+        navigate('/notes');
+      } else {
+        const result = await uploadService.uploadAndGenerate(file, meta, onUploadProgress);
+        toast.success(`Generated ${result.flashcards.length} flashcards!`);
+        navigate('/flashcards');
+      }
     } catch (err) {
       // Error toast already shown by axios interceptor
     } finally {
       setUploading(false);
+      setActiveAction(null);
     }
   };
 
@@ -60,7 +91,8 @@ export default function UploadNotes() {
         <div className="mb-6 animate-fade-in">
           <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Upload Notes</h1>
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Upload a PDF or image of your notes — AI will extract the text and generate flashcards automatically.
+            Upload a PDF or image, or take a photo of your notes. Save it for later, or generate flashcards right
+            away with AI.
           </p>
         </div>
 
@@ -112,7 +144,28 @@ export default function UploadNotes() {
               className="hidden"
               onChange={(e) => handleFileSelect(e.target.files?.[0])}
             />
+            {/* Web camera-capture fallback: on mobile browsers this opens the device camera;
+                on desktop browsers it falls back to a normal file picker. */}
+            <input
+              ref={cameraInputRef}
+              type="file"
+              accept="image/*"
+              capture="environment"
+              className="hidden"
+              onChange={(e) => handleFileSelect(e.target.files?.[0])}
+            />
           </div>
+
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleTakePhoto();
+            }}
+            className="btn-secondary mt-3 w-full"
+          >
+            <CameraIcon size={18} /> Take Photo
+          </button>
 
           <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
             <input
@@ -147,22 +200,51 @@ export default function UploadNotes() {
                 />
               </div>
               <p className="mt-1 text-xs text-gray-400">
-                {progress < 100 ? `Uploading... ${progress}%` : 'Extracting text & generating flashcards with AI...'}
+                {progress < 100
+                  ? `Uploading... ${progress}%`
+                  : activeAction === 'save'
+                  ? 'Saving note...'
+                  : 'Extracting text & generating flashcards with AI...'}
               </p>
             </div>
           )}
 
-          <button onClick={handleSubmit} disabled={uploading || !file} className="btn-primary mt-5 w-full">
-            {uploading ? (
-              <>
-                <Loader2 size={18} className="animate-spin" /> Processing...
-              </>
-            ) : (
-              <>
-                <Sparkles size={18} /> Generate Flashcards
-              </>
-            )}
-          </button>
+          <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <button
+              onClick={() => runUpload('save')}
+              disabled={uploading || !file}
+              className="btn-secondary w-full"
+            >
+              {uploading && activeAction === 'save' ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" /> Saving...
+                </>
+              ) : (
+                <>
+                  <Save size={18} /> Save Notes
+                </>
+              )}
+            </button>
+            <button
+              onClick={() => runUpload('generate')}
+              disabled={uploading || !file}
+              className="btn-primary w-full"
+            >
+              {uploading && activeAction === 'generate' ? (
+                <>
+                  <Loader2 size={18} className="animate-spin" /> Processing...
+                </>
+              ) : (
+                <>
+                  <Sparkles size={18} /> Save & Generate Flashcards
+                </>
+              )}
+            </button>
+          </div>
+          <p className="mt-2 text-center text-xs text-gray-400">
+            "Save Notes" stores your file without generating flashcards — you can generate them later from the Notes
+            page.
+          </p>
         </div>
       </div>
     </Layout>

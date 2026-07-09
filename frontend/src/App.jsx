@@ -5,6 +5,7 @@ import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Flashcards from './pages/Flashcards';
 import UploadNotes from './pages/UploadNotes';
+import Notes from './pages/Notes';
 import StudyMode from './pages/StudyMode';
 import QuizMode from './pages/QuizMode';
 import Statistics from './pages/Statistics';
@@ -40,6 +41,14 @@ export default function App() {
         element={
           <PrivateRoute>
             <UploadNotes />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/notes"
+        element={
+          <PrivateRoute>
+            <Notes />
           </PrivateRoute>
         }
       />
