@@ -45,7 +45,7 @@ const statusLabels = {
  */
 function FilePreviewThumb({ note, size = 'md', onOpen }) {
   const [imgError, setImgError] = useState(false);
-  const dims = size === 'lg' ? 'h-28 w-28 sm:h-36 sm:w-36' : 'h-14 w-14';
+  const dims = size === 'lg' ? 'h-24 w-24 sm:h-36 sm:w-36' : 'h-14 w-14';
 
   const isImage = note.fileType === 'image' && !imgError;
 
@@ -184,7 +184,7 @@ function NoteRow({ note, onDeleted, onGenerated, onOpenFile }) {
       {/* Parent row: the uploaded file */}
       <div
         onClick={toggleExpanded}
-        className="flex cursor-pointer items-center gap-4 p-4 hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-gray-800/60 dark:active:bg-gray-800 sm:p-5"
+        className="flex cursor-pointer items-center gap-2 p-3 hover:bg-gray-50 active:bg-gray-100 dark:hover:bg-gray-800/60 dark:active:bg-gray-800 sm:gap-4 sm:p-5"
       >
         <span className="shrink-0 text-gray-400">
           {expanded ? <ChevronDown size={20} /> : <ChevronRight size={20} />}
@@ -254,14 +254,14 @@ function NoteRow({ note, onDeleted, onGenerated, onOpenFile }) {
             {/* Preview */}
             <div>
               <p className="mb-2 text-xs font-bold uppercase tracking-wide text-gray-400">Preview</p>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
                 <FilePreviewThumb note={note} size="lg" onOpen={onOpenFile} />
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     onOpenFile(note);
                   }}
-                  className="btn-secondary"
+                  className="btn-secondary w-full sm:w-auto"
                 >
                   <Maximize2 size={15} /> Open {note.fileType === 'pdf' ? 'PDF' : 'image'}
                 </button>
@@ -389,7 +389,7 @@ export default function Notes() {
 
   return (
     <Layout>
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-5xl overflow-x-hidden">
         <div className="mb-6 flex items-center justify-between animate-fade-in">
           <div>
             <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">Notes</h1>
